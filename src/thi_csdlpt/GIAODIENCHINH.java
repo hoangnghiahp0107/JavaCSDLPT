@@ -365,7 +365,7 @@ public class GIAODIENCHINH extends javax.swing.JFrame {
         // TODO add your handling code here:
         File f = new File("D:/sanpham_1.txt");
         DataModel db = new DataModel();
-        String tenCot[]= {"Ma Hoa Don", "Ma Khach Hang", "Ngay"};
+        String tenCot[]= {"Ma Hoa Don", "Ma Khach Hang"};
         tblmodel = new DefaultTableModel(tenCot,0);
         db.getDataHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "1" );
     }//GEN-LAST:event_HOADON_MANH1ActionPerformed
@@ -374,7 +374,7 @@ public class GIAODIENCHINH extends javax.swing.JFrame {
         // TODO add your handling code here:
         File f = new File("D:/sanpham_2.txt");
         DataModel db = new DataModel();
-        String tenCot[]= {"Ma Hoa Don", "Ma Khach Hang", "Ngay"};
+        String tenCot[]= {"Ma Hoa Don", "Ngay"};
         tblmodel = new DefaultTableModel(tenCot,0);
         db.getDataHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "2" );
     }//GEN-LAST:event_HOADON_MANH2ActionPerformed
@@ -382,12 +382,14 @@ public class GIAODIENCHINH extends javax.swing.JFrame {
     private void HOADONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOADONActionPerformed
         // TODO add your handling code here:
         DataModel db = new DataModel();
-        String tenCot[]= {"Ma Hoa Don", "Ma Khach Hang", "Ngay"};
-        tblmodel = new DefaultTableModel(tenCot,0);
+        String tenCot[]={"Ma Hoa Don","Ma Khach Hang", "Ngay"};
         File f = new File("D:/sanpham_1.txt");
-        db.getDataHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "1");
+        ArrayList<ArrayList<String>> a = db.getManhHoaDon(f, tblmodel, tblResult, txtError, tenCot,"1");
         f = new File("D:/sanpham_2.txt");
-        db.getDataHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "2"); 
+        ArrayList<ArrayList<String>> b = db.getManhHoaDon(f, tblmodel, tblResult, txtError, tenCot,"2");
+        ArrayList<ArrayList<String>> c = db.ket(a, b);
+        tblmodel = db.getTableModel(tenCot, c);
+        tblResult.setModel(tblmodel);
     }//GEN-LAST:event_HOADONActionPerformed
 
     private void CHITIETHOADON_MANH1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CHITIETHOADON_MANH1ActionPerformed
@@ -403,7 +405,7 @@ public class GIAODIENCHINH extends javax.swing.JFrame {
         // TODO add your handling code here:
         File f = new File("D:/sanpham_2.txt");
         DataModel db = new DataModel();
-        String tenCot[]= {"Ma Hoa Don", "Ma San Pham", "So Luong"};
+        String tenCot[]= {"Ma Hoa Don", "Ma San Pham", "Gia Ban"};
         tblmodel = new DefaultTableModel(tenCot,0);
         db.getDataChiTietHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "2" );
     }//GEN-LAST:event_CHITIETHOADON_MANH2ActionPerformed
@@ -411,12 +413,14 @@ public class GIAODIENCHINH extends javax.swing.JFrame {
     private void CHITIETHOADONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CHITIETHOADONActionPerformed
         // TODO add your handling code here:
         DataModel db = new DataModel();
-        String tenCot[]= {"Ma Hoa Don", "Ma San Pham", "So Luong"};
-        tblmodel = new DefaultTableModel(tenCot,0);
+        String tenCot[]={"Ma Hoa Don","Ma San Pham", "So Luong", "Gia Ban"};
         File f = new File("D:/sanpham_1.txt");
-        db.getDataChiTietHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "1");
+        ArrayList<ArrayList<String>> a = db.getManhChiTietHoaDon(f, tblmodel, tblResult, txtError, tenCot,"1");
         f = new File("D:/sanpham_2.txt");
-        db.getDataChiTietHoaDonManh(f, tblmodel, tblResult, txtError, tenCot, "2"); 
+        ArrayList<ArrayList<String>> b = db.getManhChiTietHoaDon(f, tblmodel, tblResult, txtError, tenCot,"2");
+        ArrayList<ArrayList<String>> c = db.ket2(a, b);
+        tblmodel = db.getTableModel(tenCot, c);
+        tblResult.setModel(tblmodel); 
     }//GEN-LAST:event_CHITIETHOADONActionPerformed
 
     /**

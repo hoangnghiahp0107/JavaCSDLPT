@@ -70,6 +70,31 @@ public class DataModel {
      return c;
     }
     
+    public static ArrayList<ArrayList<String>> ket2(ArrayList<ArrayList<String>> a,
+                                                   ArrayList<ArrayList<String>> b) {
+        ArrayList<ArrayList<String>> c = new ArrayList<>();
+
+        for (ArrayList<String> row_a : a) {
+            String maHoaDon_a = row_a.get(0);
+            String maSanPham_a = row_a.get(1);
+
+            for (ArrayList<String> row_b : b) {
+                String maHoaDon_b = row_b.get(0);
+                String maSanPham_b = row_b.get(1);
+
+                // Kiểm tra xem hai hàng có cùng MAHOADON và MASANPHAM hay không
+                if (maHoaDon_a.equals(maHoaDon_b) && maSanPham_a.equals(maSanPham_b)) {
+                    ArrayList<String> row_c = new ArrayList<>(row_a); // Sao chép row_a
+                    for (int i = 2; i < row_b.size(); i++) { // Bỏ qua MAHOADON, MASANPHAM
+                        row_c.add(row_b.get(i));
+                    }
+                    c.add(row_c);
+                }
+            }
+        }
+        return c;
+    }
+    
     public DefaultTableModel getTableModel(String[] tenCot, ArrayList<ArrayList<String>> d){
     DefaultTableModel tableModel = new DefaultTableModel(tenCot, 0);
     for(int i=0;i<d.size();i++){
@@ -302,6 +327,40 @@ public class DataModel {
     return a;
     }
     
+    public ArrayList<ArrayList<String>> getManhHoaDon( File f, DefaultTableModel tableModel, JTable tblResult, 
+    JTextArea txtError, String tenCot[], String manh ){
+    if( f == null ){ return null; }
+    ArrayList<String> aIP = new ArrayList();
+    try{
+    BufferedReader bf = new BufferedReader(new FileReader(f));
+    while( bf.ready() ){
+    aIP.add( bf.readLine() );
+    }
+    bf.close();
+    }catch(Exception e){
+    e.printStackTrace();
+    }
+    ArrayList<ArrayList<String>> a = null;
+    for(int i=0; i < aIP.size(); i++){
+    String url="http://" + aIP.get(i)+ "/hoadon/manh"+manh;
+    DataModel db = new DataModel(); 
+    try{
+    a = db.get(url);
+    break;
+    }
+    catch(ConnectException e1){
+    String s = txtError.getText();
+    s+="\n";
+    s+=url+" Down";
+    txtError.setText(s);
+    }
+    catch(Exception e2){
+    e2.printStackTrace();
+    }
+    }
+    return a;
+    }
+    
     public void getDataHoaDonManh( File f, DefaultTableModel tableModel, JTable tblResult, 
     JTextArea txtError, String tenCot[],String manh){
     if( f == null ){ return; }
@@ -368,6 +427,40 @@ public class DataModel {
     e2.printStackTrace();
     }
     }
+    }
+    
+        public ArrayList<ArrayList<String>> getManhChiTietHoaDon( File f, DefaultTableModel tableModel, JTable tblResult, 
+    JTextArea txtError, String tenCot[], String manh ){
+    if( f == null ){ return null; }
+    ArrayList<String> aIP = new ArrayList();
+    try{
+    BufferedReader bf = new BufferedReader(new FileReader(f));
+    while( bf.ready() ){
+    aIP.add( bf.readLine() );
+    }
+    bf.close();
+    }catch(Exception e){
+    e.printStackTrace();
+    }
+    ArrayList<ArrayList<String>> a = null;
+    for(int i=0; i < aIP.size(); i++){
+    String url="http://" + aIP.get(i)+ "/chitiethoadon/manh"+manh;
+    DataModel db = new DataModel(); 
+    try{
+    a = db.get(url);
+    break;
+    }
+    catch(ConnectException e1){
+    String s = txtError.getText();
+    s+="\n";
+    s+=url+" Down";
+    txtError.setText(s);
+    }
+    catch(Exception e2){
+    e2.printStackTrace();
+    }
+    }
+    return a;
     }
     
 }
